@@ -11,7 +11,7 @@ myImage.addEventListener('load', ()=> {
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 500;
-    canvas.height = 706;
+    canvas.height = 500;
 
     ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
     const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -31,6 +31,7 @@ myImage.addEventListener('load', ()=> {
             const brightness = calcRelativeBrightness(red, green, blue);
             const cell = [
                 cellBrightness = brightness,  // I think "cellBrightness" is used just for readability considering that "cell.cellBrightness" is undefeined
+                cellColor = 'rgb(' + red + ',' + green + ',' + blue + ')'
             ];
             row.push(cell);
         }
@@ -63,15 +64,20 @@ myImage.addEventListener('load', ()=> {
             this.speed = mappedImage[this.position1][this.position2][0]; 
             let movement = (2.5 - this.speed) + this.velocity;
             this.y += movement;
+            this.x += movement;
             if (this.y >= canvas.height){  // reset pixel fall
                 this.y = 0;
                 this.x = Math.random() * canvas.width;
+            }
+            if (this.x >= canvas.width){
+                this.x = 0;
+                this.y = Math.random() * canvas.height;
             }
         }
 
         draw() {
             ctx.beginPath();
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = mappedImage[this.position1][this.position2][1];
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
