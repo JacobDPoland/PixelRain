@@ -7,15 +7,15 @@ myImage.addEventListener('load', ()=> {
     
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = 1920;
-    canvas.height = 1080;
+    canvas.width = 500;
+    canvas.height = 500;
 
     ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
     const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
     ctx.clearRect(0, 0, canvas.width, canvas.height);  // clear image
 
     let particlesArray = [];
-    const numberOfParticles = 10000;
+    const numberOfParticles = 1000;
 
     let mappedImage = [];  // will hold brightness values for each pixel
     for (let y = 0; y < canvas.height; y++){
